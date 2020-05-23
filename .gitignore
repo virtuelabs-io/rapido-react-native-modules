@@ -9,6 +9,8 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+rapido-modules/build/*
+rapido-modules/**/node_modules
 
 # macOS
 .DS_Store
