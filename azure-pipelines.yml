@@ -35,19 +35,19 @@ steps:
   condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - script: |
-    touch ~/.npmrc
+    npm install npmrc -g
     echo "registry=https://registry.npmjs.com/" >> ~/.npmrc
     echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ~/.npmrc
     echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+    cat ~/.npmrc
   displayName: 'Publishing Environemnt Setup'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   env:
     NPM_TOKEN: $(NPM_TOKEN)
 
 - task: Npm@1
-  displayName: 'Publishing packagest'
+  displayName: 'Publishing package'
   inputs:
     command: custom
     customCommand: 'run rapido-cd -- --location=rapido-modules/rapido-rn-splash-screen'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-
