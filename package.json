@@ -1,14 +1,16 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "rapido-ci": "./scripts/rapido-ci-cd",
+    "rapido-cd": "./scripts/rapido-ci-cd --publish=true"
   },
   "dependencies": {
-    "@virtuelabs-io/rapido-rn-splash-screen": "file:rapido-modules/splash-screen",
     "expo": "~37.0.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

@@ -1,0 +1,119 @@
+#!/bin/bash
+
+set -e
+
+echo ""
+echo "[🤞] Preparing to run all tests and compile typescrypt."
+echo ""
+
+unset RAPIDO_CURRENT_LOCATION
+unset RAPIDO_MODULE_LOCATION
+unset RAPIDO_MODULE_COMPILE
+unset RAPIDO_MODULE_TEST
+unset RAPIDO_MODULE_COMPILE
+
+function usage()
+{
+    echo ""
+    echo "$(tput setaf 7)💡 Rapido Compile, Test and Publish Node Modules Tool $(tput sgr0)"
+    echo ""
+    echo "-l   | --location        Path to the module (Mandatory)"
+    echo "-c   | --compile         Compile module (Default: true)"
+    echo "-t   | --test            Run tests in the module (Default: true)"
+    echo "-p   | --publish         Publish Module (Default: false)"
+    echo "-h   | --help            Displays all the available options"
+    echo ""
+    echo "$(tput setaf 7)💡 Example usage: $(tput sgr0)"
+    echo "  => ./rapido-node"
+    echo "          --location=/path/to/the/module"
+    echo "          --compile=true"
+    echo "          --test=true"
+    echo "          --publish=false"
+    echo ""
+}
+
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        -h | --help)
+            usage
+            exit
+            ;;
+        -l | --location)
+            RAPIDO_MODULE_LOCATION=$VALUE
+            ;;
+        -c | --compile)
+            RAPIDO_MODULE_COMPILE=$VALUE
+            ;;
+        -t | --test)
+            RAPIDO_MODULE_TEST=$TEST
+            ;;
+        -p | --publish)
+            RAPIDO_MODULE_PUBLISH=$VALUE
+            ;;
+        *)
+            echo "$(tput setaf 1)[🛑]  unknown parameter \"$PARAM\" $(tput sgr0)"
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+RAPIDO_CURRENT_LOCATION=$(pwd)
+
+if [[ -z "$RAPIDO_MODULE_LOCATION" ]]; then
+    echo "$(tput setaf 1)[🛑]  Location of the node module not specified. Use the '--location' or -l flag to specify the location of the module."
+    exit 1
+fi
+
+if [[ -z "$RAPIDO_MODULE_COMPILE" ]]; then
+    RAPIDO_MODULE_COMPILE="true"
+    echo "$(tput setaf 3)[👷]  Setting Compile to false, as not specified through '--compile' flag"
+fi
+
+if [[ -z "$RAPIDO_MODULE_TEST" ]]; then
+    RAPIDO_MODULE_TEST="true"
+    echo "$(tput setaf 3)[👷]  Setting Test to true, as not specified through '--test' flag"
+fi
+
+if [[ -z "$RAPIDO_MODULE_PUBLISH" ]]; then
+    RAPIDO_MODULE_PUBLISH="false"
+    echo "$(tput setaf 3)[👷]  Setting Publish to false, as not specified through '--publish' flag"
+fi
+
+echo "$(tput sgr0)"
+echo "[👉] Current Location: $RAPIDO_CURRENT_LOCATION"
+echo "[👉] Module Location: $RAPIDO_MODULE_LOCATION"
+echo "[👉] Compile: $RAPIDO_MODULE_COMPILE"
+echo "[👉] Test: $RAPIDO_MODULE_TEST"
+echo "[👉] Publish: $RAPIDO_MODULE_PUBLISH"
+echo "$(tput sgr0)"
+
+echo "[👉] Installing all dependencies"
+cd $RAPIDO_MODULE_LOCATION && npm install
+cd $RAPIDO_CURRENT_LOCATION
+echo "$(tput setaf 4)[🙌]  Successfully installed all dependencies $(tput sgr0)"
+
+if [ $RAPIDO_MODULE_COMPILE == 'true' ]; then
+    echo "[👉]  Compiling code in: $RAPIDO_MODULE_LOCATION"
+    cd $RAPIDO_MODULE_LOCATION && tsc
+    cd $RAPIDO_CURRENT_LOCATION
+    echo "$(tput setaf 4)[🙌]  Successfully compiled module $(tput sgr0)"
+fi
+
+if [ $RAPIDO_MODULE_TEST == 'true' ]; then
+    echo "[👉]  Testing code in: $RAPIDO_MODULE_LOCATION"
+    cd $RAPIDO_MODULE_LOCATION && npm run test
+    cd $RAPIDO_CURRENT_LOCATION
+    echo "$(tput setaf 4)[🙌]  Successfully tested module $(tput sgr0)"
+fi
+
+if [ $RAPIDO_MODULE_PUBLISH == 'true' ]; then
+    echo "[👉]  Publishing module in: $RAPIDO_MODULE_LOCATION"
+    cd $RAPIDO_MODULE_LOCATION
+    npm publish --access public || true
+    cd $RAPIDO_CURRENT_LOCATION
+    echo "$(tput setaf 4)[🙌]  Successfully published module $(tput sgr0)"
+fi
