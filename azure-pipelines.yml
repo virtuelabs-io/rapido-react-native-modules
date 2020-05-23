@@ -40,9 +40,6 @@ steps:
     echo _auth=$NPM_TOKEN >> ~/.npmrc
     echo email=$NPM_EMAIL >> ~/.npmrc
     echo always-auth=true >> ~/.npmrc
-    cat ~/.npmrc
-    cp ~/.npmrc rapido-modules/rapido-rn-splash-screen
-    cat rapido-modules/rapido-rn-splash-screen/.npmrc
   displayName: 'NPM Login'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   env:

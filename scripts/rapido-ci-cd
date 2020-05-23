@@ -112,8 +112,10 @@ fi
 
 if [ $RAPIDO_MODULE_PUBLISH == 'true' ]; then
     echo "[👉]  Publishing module in: $RAPIDO_MODULE_LOCATION"
+    cp ~/.npmrc $RAPIDO_MODULE_LOCATION || true
     cd $RAPIDO_MODULE_LOCATION
     npm publish --access public
+    rm -rf .npmrc || true
     cd $RAPIDO_CURRENT_LOCATION
     echo "$(tput setaf 4)[🙌]  Successfully published module $(tput sgr0)"
 fi
