@@ -35,16 +35,14 @@ steps:
   condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - script: |
-    npm install npmrc -g
-    echo "registry=https://registry.npmjs.com/" >> ~/.npmrc
-    echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ~/.npmrc
-    echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-    cat ~/.npmrc
-    npm login --scope=@virtuelabs-io
-  displayName: 'Publishing Environemnt Setup'
+    npm install -g npmrc npm-cli-login
+    npm-cli-login -u $NPM_USER -p $NPM_PASSWORD -e $NPM_EMAIL
+  displayName: 'NPM Login'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   env:
-    NPM_TOKEN: $(NPM_TOKEN)
+    NPM_USER: $(NPM_USER)
+    NPM_EMAIL: $(NPM_EMAIL)
+    NPM_PASSWORD: $(NPM_PASSWORD)
 
 - task: Npm@1
   displayName: 'Publishing package'
