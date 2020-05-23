@@ -9,7 +9,8 @@ export const SplashScreenStyles = StyleSheet.create({
     },
     title: {
         fontWeight: "bold",
-        fontSize: 30
+        fontSize: 30,
+        color : '#FF9800'
     }
 });
 
