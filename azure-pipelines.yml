@@ -36,19 +36,16 @@ steps:
 
 - script: |
     npm install npmrc -g
-    echo "registry=https://registry.npmjs.com/" >> ./.npmrc
-    echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ./.npmrc
-    echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ./.npmrc
-    cat ./.npmrc
+    echo "registry=https://registry.npmjs.com/" >> ~/.npmrc
+    echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ~/.npmrc
+    echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+    cat ~/.npmrc
+    npm adduser --always-auth --scope=@virtuelabs-io
+    npm set //registry.npmjs.com/:_authToken $NPM_TOKEN
   displayName: 'Publishing Environemnt Setup'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   env:
     NPM_TOKEN: $(NPM_TOKEN)
-
-- task: npmAuthenticate@0
-  inputs:
-    workingFile: .npmrc
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: Npm@1
   displayName: 'Publishing package'
