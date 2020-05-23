@@ -1,53 +1,53 @@
 pool:
-	vmImage: 'Ubuntu 16.04'
+  vmImage: 'Ubuntu 16.04'
 
 trigger:
-	branches:
-		include:
-			- master
-			- feature/*
-			- bug/*
-	tags:
-		include:
-			- v*
+  branches:
+    include:
+      - master
+      - feature/*
+      - bug/*
+  tags:
+    include:
+      - v*
 
 pr:
-	branches:
-		include:
-			- master
+  branches:
+    include:
+      - master
 
 steps:
 
 - task: NodeTool@0
-	inputs:
-		versionSpec: '12.x'
+  inputs:
+    versionSpec: '12.x'
 
 - task: Npm@1
-	displayName: 'npm install'
-		inputs:
-			command: install
+  displayName: 'npm install'
+  inputs:
+    command: install
 
 - task: Npm@1
-	displayName: 'Compile & Test'
-		inputs:
-			command: custom
-			customCommand: 'run rapido-ci -- --location=rapido-modules/rapido-rn-splash-screen'
-	condition: eq(variables['Build.Reason'], 'PullRequest')
+  displayName: 'Compile & Test'
+  inputs:
+    command: custom
+    customCommand: 'run rapido-ci -- --location=rapido-modules/rapido-rn-splash-screen'
+  condition: eq(variables['Build.Reason'], 'PullRequest')
 
 - script: |
-		touch ~/.npmrc
-		echo "registry=https://registry.npmjs.com/" >> ~/.npmrc
-		echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ~/.npmrc
-		echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-	displayName: 'Publishing Environemnt Setup'
-	condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-	env:
-		NPM_TOKEN: $(NPM_TOKEN)
+    touch ~/.npmrc
+    echo "registry=https://registry.npmjs.com/" >> ~/.npmrc
+    echo "@virtuelabs-io:registry=https://registry.npmjs.com/" >> ~/.npmrc
+    echo "//registry.npmjs.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+  displayName: 'Publishing Environemnt Setup'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  env:
+    NPM_TOKEN: $(NPM_TOKEN)
 
 - task: Npm@1
-	displayName: 'Publishing packagest'
-		inputs:
-			command: custom
-			customCommand: 'run rapido-cd -- --location=rapido-modules/rapido-rn-splash-screen'
-	condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  displayName: 'Publishing packagest'
+  inputs:
+    command: custom
+    customCommand: 'run rapido-cd -- --location=rapido-modules/rapido-rn-splash-screen'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
