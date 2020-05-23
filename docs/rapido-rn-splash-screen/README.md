@@ -1,6 +1,6 @@
 # Rapido build Splash Screen
 
-Current Version: `0.0.3`
+Current Version: `0.0.5`
 
 ## Platforms supported
 
