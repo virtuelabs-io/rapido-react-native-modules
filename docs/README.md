@@ -6,4 +6,4 @@ The modules in this repository will be used by all backoffice and customer facin
 
 | Module Name             | Latest Version | Android | IoS | Web |
 |-------------------------|:--------------:|:-------:|:---:|:---:|
-| [rapido-rn-splash-screen](./rapido-rn-splash-screen/README.md) | 0.0.6          | [x]     | [x] | [x] |
+| [rapido-rn-splash-screen](./rapido-rn-splash-screen/README.md) | 0.0.7          | [x]     | [x] | [x] |
