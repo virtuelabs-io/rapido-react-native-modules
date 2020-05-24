@@ -1,5 +1,5 @@
 import React from 'react';
-import { SplashScreen } from './rapido-modules/rapido-rn-splash-screen/src/SplashScreenView';
+import { SplashScreen } from './rapido-modules/atoms/rapido-rn-splash-screen/src/SplashScreenView';
 
 export default function App() {
   return (
