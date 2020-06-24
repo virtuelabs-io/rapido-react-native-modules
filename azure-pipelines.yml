@@ -52,5 +52,5 @@ steps:
   displayName: 'Publishing package'
   inputs:
     command: custom
-    customCommand: 'run rapido-cd -- --location=rapido-modules/atoms/rapido-rn-splash-screen'
+    customCommand: 'run rapido-cd -- --location=rapido-modules'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
