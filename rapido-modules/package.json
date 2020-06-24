@@ -1,0 +1,59 @@
+{
+  "name": "@virtuelabs-io/rapido-modules",
+  "version": "0.1.0",
+  "description": "Rapidobuild Modules for backoffice applications",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"[INFO]: Tests comming soon\" && exit 0",
+    "compile": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virtuelabs-io/rapido-react-native-modules.git"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "backoffice",
+    "rapidobuild"
+  ],
+  "author": "Sangram Reddy (https://github.com/reddy-s)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/virtuelabs-io/rapido-react-native-modules/issues"
+  },
+  "homepage": "https://github.com/virtuelabs-io/rapido-react-native-modules/blob/master/README.md",
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
+    "@react-native-community/datetimepicker": "2.2.2",
+    "@react-native-community/masked-view": "0.1.6",
+    "expo": "~37.0.3",
+    "expo-font": "~8.1.0",
+    "expo-permissions": "~8.1.0",
+    "native-base": "^2.13.12",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "~1.7.0",
+    "react-native-safe-area-context": "0.7.3",
+    "react-native-screens": "~2.2.0",
+    "react-native-svg": "11.0.1",
+    "react-native-web": "~0.11.7",
+    "react-navigation-header-buttons": "^4.0.2",
+    "victory-native": "^34.3.0",
+    "tslib": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@types/react": "~16.9.23",
+    "@types/react-native": "~0.61.17",
+    "babel-preset-expo": "~8.1.0",
+    "typescript": "~3.8.3"
+  }
+}
